@@ -1,58 +1,42 @@
-/* General App Styling */
-body {
-    color: #28a745; /* Pleasant green for all text */
-    background-color: #ffffff; /* Pure white background */
-}
-
-/* Main App Container */
+/* --- Global Styles --- */
+/* Set a default background and text color for the entire app. */
+/* The !important flag ensures these styles override Streamlit's defaults. */
 .stApp {
-    background-color: #ffffff;
+    background-color: #ffffff !important;
+    color: #28a745 !important;
 }
 
-/* Sidebar Styling */
-.stSidebar {
-    background-color: #f8f9fa; /* Very light grey for sidebar */
+/* --- Main Text & Headings --- */
+/* Explicitly target all headers and subheaders to be green and bold. */
+h1, h2, h3, h4, h5, h6 {
+    color: #28a745 !important;
+    font-weight: bold !important;
 }
 
-.stSidebar .st-emotion-cache-16txtl3 {
-    color: #28a745; /* Green text in sidebar */
+/* --- Sidebar Styling --- */
+[data-testid="stSidebar"] {
+    background-color: #f0f2f6 !important;
+    border-right: 2px solid #e0e0e0;
+}
+/* This targets all text within the sidebar to be green. */
+[data-testid="stSidebar"] * {
+     color: #28a745 !important;
 }
 
-/* Key Metric Cards */
-.stMetric {
-    background-color: #ffffff; /* White cards */
-    border: 1px solid #dee2e6;
-    padding: 20px;
+/* --- Metric Boxes --- */
+[data-testid="stMetric"] {
+    background-color: #f9f9f9 !important;
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+}
+/* Target metric labels and values specifically to ensure they are green. */
+[data-testid="stMetricLabel"] p, [data-testid="stMetricValue"] div {
+    color: #28a745 !important;
 }
 
-.stMetric > label, .stMetric > div > div {
-    color: #28a745 !important; /* Green metric labels and values */
-}
-
-.stMetric > div > div {
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-
-/* Headers and Subheaders */
-h1, h2, h3 {
-    color: #28a745; /* Pleasant green for headers */
-}
-
-/* Chart and Container Styling */
-.stPlotlyChart {
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #ffffff; /* White background for charts */
-    border: 1px solid #dee2e6;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Markdown Separators */
-hr {
-    border-top: 1px solid #dee2e6;
+[data-testid="stMetricValue"] {
+    font-size: 28px !important;
+    font-weight: bold !important;
 }
 
