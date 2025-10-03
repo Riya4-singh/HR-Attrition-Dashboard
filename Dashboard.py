@@ -1,4 +1,4 @@
-import streamlit as st
+# Version 2 - Forcing a rebuildimport streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -134,4 +134,5 @@ with col2:
     fig_box_age = px.box(df_selection, x='OverTime', y='Age', color='Attrition', title='<b>Age Distribution by Overtime & Attrition</b>', color_discrete_map={'Yes': '#e63946', 'No': '#457b9d'})
     fig_box_age.update_layout(plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black')
     st.plotly_chart(fig_box_age, use_container_width=True)
+
 
