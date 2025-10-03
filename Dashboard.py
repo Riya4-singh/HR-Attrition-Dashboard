@@ -78,7 +78,6 @@ with col1:
         df_attrition_only, names='Gender', title='<b>Gender of Employees Who Left</b>',
         hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel
     )
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
     fig_pie_gender.update_layout(
         plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black',
         legend_title_font_color='black', legend_font_color='black', title_font_color='black'
@@ -91,7 +90,6 @@ with col2:
         df_attrition_only, names='OverTime', title='<b>Overtime Status of Employees Who Left</b>',
         hole=0.4, color_discrete_sequence=px.colors.qualitative.Set2
     )
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
     fig_pie_overtime.update_layout(
         plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black',
         legend_title_font_color='black', legend_font_color='black', title_font_color='black'
@@ -116,11 +114,12 @@ with col1:
     model.fit(X, y)
     importances = pd.DataFrame({'feature': X.columns, 'importance': model.feature_importances_}).sort_values('importance', ascending=False).head(10)
     fig_importance = px.bar(importances, x='importance', y='feature', orientation='h', title='<b>Top 10 Most Important Features</b>', text='importance', color='importance', color_continuous_scale=px.colors.sequential.Plasma_r)
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
+    # Corrected Layout: Merged the two 'yaxis' arguments into one
     fig_importance.update_layout(
-        plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black', yaxis={'categoryorder': 'total ascending'},
-        title_font_color='black', xaxis={'title_font_color': 'black', 'tickfont_color': 'black'},
-        yaxis={'title_font_color': 'black', 'tickfont_color': 'black'}
+        plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black',
+        title_font_color='black',
+        xaxis={'title_font_color': 'black', 'tickfont_color': 'black'},
+        yaxis={'categoryorder': 'total ascending', 'title_font_color': 'black', 'tickfont_color': 'black'}
     )
     fig_importance.update_traces(texttemplate='%{text:.2f}', textposition='outside')
     st.plotly_chart(fig_importance, use_container_width=True)
@@ -128,7 +127,6 @@ with col1:
 with col2:
     st.subheader("Attrition Count by Department & Job Role")
     fig_treemap = px.treemap(df_attrition_only, path=[px.Constant("All Employees"), 'Department', 'JobRole'], title='<b>Treemap of Employees Who Left</b>', color_discrete_sequence=px.colors.qualitative.T10)
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
     fig_treemap.update_layout(
         plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black', title_font_color='black'
     )
@@ -144,7 +142,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Does Income Make a Difference?")
     fig_violin_income = px.violin(df_selection, y='MonthlyIncome', x='Attrition', box=True, title='<b>Income Distribution: Leavers vs. Stayers</b>', color='Attrition', color_discrete_map={'Yes': '#e63946', 'No': '#457b9d'})
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
     fig_violin_income.update_layout(
         plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black', title_font_color='black',
         xaxis={'title_font_color': 'black', 'tickfont_color': 'black'},
@@ -155,7 +152,6 @@ with col1:
 with col2:
     st.subheader("How Does Overtime Affect Different Ages?")
     fig_box_age = px.box(df_selection, x='OverTime', y='Age', color='Attrition', title='<b>Age Distribution by Overtime & Attrition</b>', color_discrete_map={'Yes': '#e63946', 'No': '#457b9d'})
-    # Corrected Layout: Explicitly set all font colors inside the chart to black
     fig_box_age.update_layout(
         plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black', title_font_color='black',
         xaxis={'title_font_color': 'black', 'tickfont_color': 'black'},
