@@ -1,0 +1,58 @@
+/* General App Styling */
+body {
+    color: #28a745; /* Pleasant green for all text */
+    background-color: #ffffff; /* Pure white background */
+}
+
+/* Main App Container */
+.stApp {
+    background-color: #ffffff;
+}
+
+/* Sidebar Styling */
+.stSidebar {
+    background-color: #f8f9fa; /* Very light grey for sidebar */
+}
+
+.stSidebar .st-emotion-cache-16txtl3 {
+    color: #28a745; /* Green text in sidebar */
+}
+
+/* Key Metric Cards */
+.stMetric {
+    background-color: #ffffff; /* White cards */
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stMetric > label, .stMetric > div > div {
+    color: #28a745 !important; /* Green metric labels and values */
+}
+
+.stMetric > div > div {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+
+/* Headers and Subheaders */
+h1, h2, h3 {
+    color: #28a745; /* Pleasant green for headers */
+}
+
+/* Chart and Container Styling */
+.stPlotlyChart {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ffffff; /* White background for charts */
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Markdown Separators */
+hr {
+    border-top: 1px solid #dee2e6;
+}
+
