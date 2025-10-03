@@ -1,4 +1,4 @@
-# Version 2 - Forcing a rebuildimport streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -15,6 +15,8 @@ st.set_page_config(
 
 # --- FUNCTION TO LOAD CSS ---
 def local_css(file_name):
+    # This function reads the CSS file and applies the styles.
+    # It checks if the file exists before trying to open it.
     if os.path.exists(file_name):
         with open(file_name) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -22,11 +24,14 @@ def local_css(file_name):
         st.warning(f"CSS file not found: {file_name}")
 
 # --- APPLY CUSTOM STYLING ---
+# Call the function to apply our custom theme from style.css
 local_css("style.css")
 
 # --- DATA LOADING ---
 @st.cache_data
 def load_data():
+    # Load the CSV data and perform initial cleaning.
+    # @st.cache_data ensures this function only runs once.
     df = pd.read_csv('WA_Fn-UseC_-HR-Employee-Attrition.csv')
     df.drop(['EmployeeCount', 'StandardHours', 'EmployeeNumber', 'Over18'], axis=1, inplace=True)
     return df
@@ -34,7 +39,7 @@ def load_data():
 df = load_data()
 
 # --- MAIN TITLE ---
-st.title("🧑‍💼 Executive HR Attrition Analysis")
+st.title("Executive HR Attrition Analysis")
 
 # --- SIDEBAR FILTERS ---
 st.sidebar.header("Dashboard Filters")
@@ -42,19 +47,23 @@ department = st.sidebar.multiselect("Select Department:", options=df["Department
 job_role = st.sidebar.multiselect("Select Job Role:", options=df["JobRole"].unique(), default=df["JobRole"].unique())
 gender = st.sidebar.multiselect("Select Gender:", options=df["Gender"].unique(), default=df["Gender"].unique())
 
-df_selection = df.query("Department == @department & JobRole == @job_role & Gender == @gender")
+# Filter the dataframe based on user selections in the sidebar
+df_selection = df.query(
+    "Department == @department & JobRole == @job_role & Gender == @gender"
+)
 
+# Stop the app if the dataframe is empty after filtering
 if df_selection.empty:
     st.warning("No data available based on the current filter settings!")
     st.stop()
 
 # --- KEY METRICS ---
-st.header("Key Metrics Overview")
 total_employees = df_selection.shape[0]
 attrition_count = df_selection[df_selection["Attrition"] == "Yes"].shape[0]
 attrition_rate = round((attrition_count / total_employees) * 100, 1) if total_employees > 0 else 0
 avg_monthly_income = round(df_selection["MonthlyIncome"].mean())
 
+st.header("Key Metrics Overview")
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Total Employees", f"{total_employees:,}")
 col2.metric("Attrition Count", f"{attrition_count:,}")
@@ -88,8 +97,7 @@ with col2:
 
 st.markdown("---")
 
-
-# --- CHART ROW: KEY DRIVERS & HIERARCHY ---
+# --- CHART ROW 1: KEY DRIVERS & HIERARCHY ---
 st.header("Key Drivers & Hierarchical Breakdown")
 col1, col2 = st.columns(2)
 
@@ -116,10 +124,9 @@ with col2:
     fig_treemap.update_traces(root_color="lightgrey")
     st.plotly_chart(fig_treemap, use_container_width=True)
 
-
 st.markdown("---")
 
-# --- CHART ROW: COMPENSATION & DEMOGRAPHICS ---
+# --- CHART ROW 2: COMPENSATION & DEMOGRAPHICS ---
 st.header("Compensation and Demographic Insights")
 col1, col2 = st.columns(2)
 
@@ -134,5 +141,4 @@ with col2:
     fig_box_age = px.box(df_selection, x='OverTime', y='Age', color='Attrition', title='<b>Age Distribution by Overtime & Attrition</b>', color_discrete_map={'Yes': '#e63946', 'No': '#457b9d'})
     fig_box_age.update_layout(plot_bgcolor='#ffffff', paper_bgcolor='#ffffff', font_color='black')
     st.plotly_chart(fig_box_age, use_container_width=True)
-
 
